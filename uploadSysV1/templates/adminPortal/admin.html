@@ -239,9 +239,6 @@
   <nav>
     <div class="logo">🎓 ProjectHub Admin</div>
     <ul>
-      <li><a href="#">Dashboard</a></li>
-      <li><a href="#">Students</a></li>
-      <li><a href="#">Projects</a></li>
       <li><span class="admin-display">Welcome, {{ request.user.username }}</span></li>
       <li><a href="{% url 'admin_logout' %}">Logout</a></li>
     </ul>
@@ -302,6 +299,7 @@
           <tr>
             <th>Student Name</th>
             <th>Project Title</th>
+            <th>Email</th>
             <th>Date Uploaded</th>
             <th>Grade</th>
             <th>Feedback</th>
@@ -312,6 +310,7 @@
           <tr>
             <td>{{ student.user.fullname }}</td>
             <td>{{ student.project_title }}</td>
+            <td>{{ student.user.email }}</td>
             <td>{{ student.date_added|date:"M d, Y" }}</td>
             <td>{% if student.grade %}{{ student.grade }}{% else %}<em>Not graded yet</em>{% endif %}</td>
             <td>{{ student.feedback|default:"-" }}</td>
