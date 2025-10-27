@@ -186,14 +186,14 @@
       <li><a href="#upload">Upload</a></li>
       <li><a href="#myfiles">My Files</a></li>
       <li><span class="user-display" id="userDisplay">Welcome, {{ request.session.username }}</span></li>
-      <li><a href="{% url 'login' %}">Logout</a></li>
+      <li><a href="{% url 'logout' %}">Logout</a></li>
     </ul>
   </nav>
 
   <div class="container">
     <div class="card" id="upload">
       <h2>Upload Your Project</h2>
-      <form method="post">
+      <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="field">
           <label for="title">Project Title</label>
@@ -212,11 +212,33 @@
 
         <button class="btn" type="submit">Upload Project</button>
       </form>
+      {% for uploadmsg in messages %}
+        <p style="text-align: center; font-size: 12px;">{{ uploadmsg }}</p>
+      {% endfor %}
+
     </div>
 
     <div class="card" id="myfiles">
       <h2>My Uploaded Files</h2>
       <div class="file-list" id="fileList"></div>
+      {% for project in projects %}
+        <div class="file-item">
+          <span class="file-name">{{ project.project_title }} - {{ project.file.name|slice:"8:" }}</span>
+          <a href="{{ project.file.url }}" class="btn" target="_blank">View</a>
+        </div>
+
+        {% if project.grade %}
+          <div style="margin: 8px 0 20px 10px; background: #f9faff; border-left: 4px solid var(--accent); padding: 10px 12px; border-radius: 8px;">
+            <p><strong>Grade:</strong> {{ project.grade }}</p>
+            <p><strong>Feedback:</strong> {{ project.feedback }}</p>
+          </div>
+        {% else %}
+         <p style="margin: 6px 0 20px 10px; font-size: 14px; color: var(--muted);"><em>Not yet graded</em></p>
+        {% endif %}
+
+      {% empty %}
+        <p>No project Uploaded yet.</p>
+      {% endfor %}
     </div>
   </div>
 

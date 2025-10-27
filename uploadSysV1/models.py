@@ -18,6 +18,9 @@ class FileUpload(models.Model):
     project_description = models.CharField(max_length=300)
     file = models.FileField(upload_to='uploads/')
     date_added = models.DateTimeField(auto_now_add=True)
+    grade = models.CharField(max_length=5, blank=True, null= True)
+    feedback = models.TextField(blank=True, null = True)
+    
 
     def __str__(self):
         return f"{self.project_title}-{self.user.username}"

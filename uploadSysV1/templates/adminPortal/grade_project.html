@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Grade Project - {{ project.project_title }}</title>
+  <style>
+    body {
+      font-family: "Inter", sans-serif;
+      background: #f8fafc;
+      margin: 0;
+      padding: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+      width: 500px;
+    }
+    h2 { color: #333; }
+    label { display: block; margin-top: 15px; font-weight: 600; }
+    input, textarea, select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-top: 6px;
+      font-size: 15px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 16px;
+      background: linear-gradient(90deg, #7c5cff, #5b3bff);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    button:hover { background: #5b3bff; }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h2>Grade Project: {{ project.project_title }}</h2>
+    <p><strong>Student:</strong> {{ project.user.username }}</p>
+    <p><a href="{{ project.file.url }}" target="_blank">📂 View Project File</a></p>
+
+    <form method="POST">
+      {% csrf_token %}
+      <label>Grade:</label>
+      <select name="grade" required>
+        <option value="">-- Select Grade --</option>
+        <option value="A">A</option>
+        <option value="B+">B+</option>
+        <option value="B">B</option>
+        <option value="C+">C+</option>
+        <option value="C">C</option>
+        <option value="D">D</option>
+        <option value="F">F</option>
+      </select>
+
+      <label>Feedback:</label>
+      <textarea name="feedback" rows="5" placeholder="Enter feedback...">{{ project.feedback }}</textarea>
+
+      <button type="submit">Submit Grade</button>
+    </form>
+  </div>
+
+</body>
+</html>

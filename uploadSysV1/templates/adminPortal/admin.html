@@ -7,143 +7,167 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#f7f9fc;
+      --bg:#f5f7fb;
       --card:#ffffff;
-      --accent:#7c5cff;
-      --accent-2:#6bd4c1;
+      --accent:#715aff;
+      --accent-light:#8f7cff;
+      --secondary:#42c2b3;
+      --text:#1b2430;
       --muted:#7b8aa5;
+      --shadow:0 8px 25px rgba(0,0,0,0.05);
+      --radius:18px;
       font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial;
     }
-    *{box-sizing:border-box}
+
+    *{box-sizing:border-box;margin:0;padding:0}
     body{
-      margin:0;
-      background:linear-gradient(180deg,var(--bg),#eef4ff 60%);
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      color:#21303a;
+      background:linear-gradient(180deg,var(--bg),#eaf0ff 70%);
+      color:var(--text);
       min-height:100vh;
       overflow-x:hidden;
+      animation:fadeIn .6s ease;
     }
 
-    /* Navigation */
+    @keyframes fadeIn {
+      from {opacity:0;transform:translateY(10px);}
+      to {opacity:1;transform:translateY(0);}
+    }
+
+    /* Navigation Bar */
     nav{
       width:100%;
-      background:linear-gradient(90deg,rgba(124,92,255,0.08),rgba(107,212,193,0.08));
-      backdrop-filter:blur(10px);
+      background:linear-gradient(90deg,var(--accent),var(--secondary));
+      color:#fff;
+      padding:18px 40px;
       display:flex;
       justify-content:space-between;
       align-items:center;
-      padding:18px 40px;
-      box-shadow:0 6px 20px rgba(19,33,68,0.05);
+      box-shadow:var(--shadow);
       position:sticky;
       top:0;
-      z-index:10;
+      z-index:1000;
     }
     .logo{
       font-weight:700;
-      font-size:18px;
-      color:var(--accent);
+      font-size:20px;
+      letter-spacing:0.5px;
       display:flex;
       align-items:center;
       gap:10px;
     }
     nav ul{
       display:flex;
-      gap:24px;
+      gap:28px;
       list-style:none;
-      margin:0;
-      padding:0;
       align-items:center;
     }
     nav ul li a{
-      color:#21303a;
+      color:#fff;
       text-decoration:none;
       font-weight:500;
-      transition:color .2s ease;
+      opacity:.9;
+      transition:opacity .2s ease;
     }
-    nav ul li a:hover{color:var(--accent);}
+    nav ul li a:hover{opacity:1;}
     .admin-display{
-      background:linear-gradient(90deg,var(--accent-2),#a6f0de);
+      background:rgba(255,255,255,0.15);
       padding:8px 14px;
       border-radius:999px;
-      color:#054;
       font-weight:600;
       font-size:14px;
     }
 
-    /* Dashboard Container */
+    /* Main Container */
     .container{
       width:100%;
-      max-width:1100px;
-      margin:40px auto;
+      max-width:1200px;
+      margin:50px auto;
       padding:0 20px;
     }
 
-    /* Dashboard Cards */
+    /* Stats Cards */
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:24px;
+      margin-bottom:40px;
+    }
+    .stat{
+      background:var(--card);
+      border-radius:var(--radius);
+      padding:26px;
+      box-shadow:var(--shadow);
+      text-align:center;
+      transition:transform .3s ease,box-shadow .3s ease;
+      position:relative;
+    }
+    .stat:hover{
+      transform:translateY(-4px);
+      box-shadow:0 10px 30px rgba(113,90,255,0.15);
+    }
+    .stat h3{
+      font-size:34px;
+      color:var(--accent);
+      margin-bottom:6px;
+    }
+    .stat p{
+      font-size:14px;
+      color:var(--muted);
+      font-weight:500;
+    }
+
+    /* Cards */
     .card{
       background:var(--card);
-      border-radius:18px;
-      padding:30px;
-      box-shadow:0 10px 35px rgba(19,33,68,0.08);
-      margin-bottom:30px;
-      transition:transform .3s ease, box-shadow .3s ease;
+      border-radius:var(--radius);
+      padding:32px;
+      box-shadow:var(--shadow);
+      margin-bottom:40px;
+      animation:fadeInUp .6s ease forwards;
     }
-    .card:hover{
-      transform:translateY(-4px);
-      box-shadow:0 14px 40px rgba(124,92,255,0.12);
+
+    @keyframes fadeInUp {
+      from {opacity:0;transform:translateY(20px);}
+      to {opacity:1;transform:translateY(0);}
     }
 
     h2{
       font-size:22px;
       font-weight:700;
-      margin:0 0 16px;
+      margin-bottom:20px;
+      color:var(--text);
+      position:relative;
+    }
+    h2::after{
+      content:"";
+      display:block;
+      width:40px;
+      height:3px;
+      background:var(--accent);
+      border-radius:4px;
+      margin-top:6px;
     }
 
-    /* Stats section */
-    .stats{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-      gap:20px;
-      margin-bottom:30px;
-    }
-    .stat{
-      background:linear-gradient(180deg,#fff,#fafcff);
-      border-radius:14px;
-      padding:24px;
-      text-align:center;
-      border:1px solid #e6edf6;
-      box-shadow:0 6px 18px rgba(124,92,255,0.05);
-      transition:transform .25s ease;
-    }
-    .stat:hover{transform:translateY(-5px);}
-    .stat h3{
-      font-size:30px;
-      margin:0;
-      color:var(--accent);
-    }
-    .stat p{
-      color:var(--muted);
-      font-size:14px;
-      margin-top:4px;
-    }
-
-    /* Table */
+    /* Tables */
     table{
       width:100%;
       border-collapse:collapse;
+      font-size:15px;
     }
     th,td{
       text-align:left;
       padding:14px 10px;
-      border-bottom:1px solid #e6edf6;
+      border-bottom:1px solid #eef2fa;
     }
     th{
       color:var(--muted);
       text-transform:uppercase;
-      font-size:13px;
+      font-size:12px;
+      letter-spacing:0.5px;
     }
-    td{font-size:15px;color:#222;}
+    td{color:var(--text);}
+    tr:hover td{background:#fafaff;}
+
     .actions{
       display:flex;
       gap:8px;
@@ -156,27 +180,55 @@
       font-weight:600;
       color:#fff;
       transition:transform .2s ease, box-shadow .2s ease;
+      text-decoration:none;
     }
-    .btn:hover{transform:scale(1.05);box-shadow:0 4px 12px rgba(124,92,255,0.15);}
-    .view{background:linear-gradient(90deg,var(--accent),#5b3bff);}
-    .delete{background:#ff4d6d;}
+    .btn:hover{transform:scale(1.05);}
+    .view{background:var(--accent);}
+    .delete{background:#ff5a7a;}
+    .grade{background:var(--secondary);}
 
-    /* Animations */
-    @keyframes fadeInUp {
-      from {opacity:0;transform:translateY(20px);}
-      to {opacity:1;transform:translateY(0);}
+    /* Search bar */
+    .search-bar{
+      display:flex;
+      gap:10px;
+      margin-bottom:18px;
     }
-    .card, .stat {animation:fadeInUp 0.6s ease forwards;}
+    .search-bar input{
+      flex:1;
+      padding:12px 16px;
+      border:1px solid #e0e4f0;
+      border-radius:10px;
+      font-size:15px;
+      outline:none;
+      transition:border .2s;
+    }
+    .search-bar input:focus{
+      border-color:var(--accent);
+    }
+    .search-bar button{
+      padding:12px 18px;
+      border:none;
+      background:var(--accent);
+      color:#fff;
+      border-radius:10px;
+      font-weight:600;
+      cursor:pointer;
+      transition:background .3s;
+    }
+    .search-bar button:hover{
+      background:var(--accent-light);
+    }
 
     footer{
       text-align:center;
       color:var(--muted);
       font-size:13px;
-      padding:20px 0 40px;
+      padding:30px 0 50px;
     }
 
     @media(max-width:768px){
-      nav{flex-direction:column;gap:10px;padding:14px 20px;}
+      nav{flex-direction:column;gap:14px;padding:14px 24px;}
+      nav ul{flex-wrap:wrap;gap:14px;justify-content:center;}
       .card{padding:24px;}
       .stats{grid-template-columns:1fr;}
     }
@@ -196,27 +248,16 @@
   </nav>
 
   <div class="container">
+
     <!-- Stats Overview -->
     <div class="stats">
-      <div class="stat">
-        <h3>0</h3>
-        <p>Total Projects</p>
-      </div>
-      <div class="stat">
-        <h3>0</h3>
-        <p>Students Registered</p>
-      </div>
-      <div class="stat">
-        <h3>0</h3>
-        <p>Pending Reviews</p>
-      </div>
-      <div class="stat">
-        <h3>0%</h3>
-        <p>Submission Rate</p>
-      </div>
+      <div class="stat"><h3>{{ total_projects }}</h3><p>Total Projects</p></div>
+      <div class="stat"><h3>{{ total_students }}</h3><p>Students Registered</p></div>
+      <div class="stat"><h3>{{ pending_reviews }}</h3><p>Pending Reviews</p></div>
+      <div class="stat"><h3>{{ submission_rate }}%</h3><p>Submission Rate</p></div>
     </div>
 
-    <!-- Projects Table -->
+    <!-- Recent Projects -->
     <div class="card">
       <h2>Recent Project Submissions</h2>
       <table>
@@ -229,39 +270,62 @@
           </tr>
         </thead>
         <tbody>
+          {% for project in projects %}
           <tr>
-            <td>AI Traffic Control</td>
-            <td>Sarah Johnson</td>
-            <td>Oct 25, 2025</td>
+            <td>{{ project.project_title }}</td>
+            <td>{{ project.user.fullname }}</td>
+            <td>{{ project.date_added|date:"M d, Y" }}</td>
             <td class="actions">
-              <button class="btn view">View</button>
-              <button class="btn delete">Delete</button>
+              <a href="{{ project.file.url }}" class="btn view">View</a>
+              <a href="{% url 'grade_project' project.id %}" class="btn grade">Grade</a>
+              <a href="{% url 'delete_project' project.id %}" class="btn delete">Delete</a>
             </td>
           </tr>
-          <tr>
-            <td>Python Grade Analyzer</td>
-            <td>Michael Doe</td>
-            <td>Oct 24, 2025</td>
-            <td class="actions">
-              <button class="btn view">View</button>
-              <button class="btn delete">Delete</button>
-            </td>
-          </tr>
-          <tr>
-            <td>Website Portfolio</td>
-            <td>Mary Koomson</td>
-            <td>Oct 23, 2025</td>
-            <td class="actions">
-              <button class="btn view">View</button>
-              <button class="btn delete">Delete</button>
-            </td>
-          </tr>
+          {% empty %}
+            <tr><td colspan="4"><em>No projects uploaded yet</em></td></tr>
+          {% endfor %}
         </tbody>
       </table>
     </div>
+
+    <!-- All Students, Projects & Grades -->
+    <div class="card">
+      <h2>All Students, Projects & Grades</h2>
+
+      <form method="GET" class="search-bar">
+        <input type="text" name="q" placeholder="Search student name..." value="{{ query|default:'' }}">
+        <button type="submit">Search</button>
+      </form>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Student Name</th>
+            <th>Project Title</th>
+            <th>Date Uploaded</th>
+            <th>Grade</th>
+            <th>Feedback</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for student in students %}
+          <tr>
+            <td>{{ student.user.fullname }}</td>
+            <td>{{ student.project_title }}</td>
+            <td>{{ student.date_added|date:"M d, Y" }}</td>
+            <td>{% if student.grade %}{{ student.grade }}{% else %}<em>Not graded yet</em>{% endif %}</td>
+            <td>{{ student.feedback|default:"-" }}</td>
+          </tr>
+          {% empty %}
+          <tr><td colspan="5"><em>No student records found.</em></td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
   </div>
 
-  <footer>© 2025 ProjectHub Admin Dashboard. All rights reserved.</footer>
+  <footer>© 2025 ProjectHub Admin Dashboard — Crafted with 💜 by Agape Systems</footer>
 
 </body>
 </html>
