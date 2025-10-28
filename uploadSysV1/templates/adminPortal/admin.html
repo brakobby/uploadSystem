@@ -440,8 +440,8 @@
               <td>{{ project.user.fullname }}</td>
               <td>{{ project.date_added|date:"M d, Y" }}</td>
               <td class="actions">
-                <a href="{{ project.file.url }}" class="btn view" target="_blank">Eye</a>
-                <a href="{% url 'grade_project' project.id %}" class="btn grade">Star</a>
+                <a href="{{ project.file.url }}" class="btn view" target="_blank">View</a>
+                <a href="{% url 'grade_project' project.id %}" class="btn grade">Grade</a>
                 <a href="{% url 'delete_project' project.id %}" class="btn delete" onclick="return confirm('Delete this project?')">Trash</a>
               </td>
             </tr>
@@ -500,7 +500,7 @@
 
   </div>
 
-  <footer>© 2025 ProjectHub Admin Dashboard — Powered by Innovation</footer>
+  <footer>© 2025 ProjectHub Admin Dashboard — Powered by CodeWithSam</footer>
 
   <!-- Scroll Animations -->
   <script>
