@@ -7,8 +7,5 @@ urlpatterns = [
     path('upload/',uploadView, name='upload'),
     path('admin-login/', adminLoginView, name='admin_login'),
     path('admindash/', adminDashboardView, name='admin_dashboard'),
-    path('admin-logout', adminLogoutView, name='admin_logout'),
-    path('logout', LogoutView, name='logout'),
-    path('delete-project/<int:pk>/', delete_project, name='delete_project'),
-    path('grade-project/<int:pk>/', grade_project, name='grade_project'),
+    path('admin-logout', adminLogoutView, name='admin_logout')
 ]

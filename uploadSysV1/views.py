@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth import authenticate, login, logout
@@ -65,40 +65,9 @@ def loginView(request):
     return render(request, 'accounts/login.html')
 
 
+
 def uploadView(request):
-    if 'user_id' not in request.session:
-        messages.error(request, "Please login first.")
-        return redirect('login')
-    
-    user = Registration.objects.get(id=request.session['user_id'])
-
-    if request.method =='POST':
-        title = request.POST['title']
-        description = request.POST['description']
-        file = request.FILES['file']
-
-        if not (title and description and file):
-            messages.error(request, "Please fill in all fields.")
-            return redirect('upload')
-        
-        FileUpload.objects.create(
-            user = user,
-            project_title = title,
-            project_description = description,
-            file = file
-        )
-        messages.success(request, "Project uploaded successfully.")
-        return redirect('upload')
-    
-    projects = FileUpload.objects.filter(user=user).order_by('-date_added')
-    return render(request, 'mainpages/upload.html', {'projects': projects})
-
-
-
-def LogoutView(request):
-    logout(request)
-    messages.success(request, "You have been logged out successfully.")
-    return redirect('login')
+    return render(request, 'mainpages/upload.html')
 
 def adminReg(request):
     return render(request, 'adminPortal/admin-register.html')
@@ -127,35 +96,8 @@ def adminLoginView(request):
 def adminDashboardView(request):
     if not request.user.is_superuser:
         return redirect('admin_login')
-    
-    projects = FileUpload.objects.all().order_by('-date_added')
-    total_projects = projects.count()
-    total_students = len(set(projects.values_list('user', flat=True)))
-    pending_reviews = projects.filter(grade__isnull = True).count()
-    submission_rate = (total_projects/total_students * 100) if total_students else 0
-
-
-    query = request.GET.get('q')
-    if query:
-        students = FileUpload.objects.filter(
-            user__fullname__icontains=query
-        ).order_by('user__fullname')
-    
-    else:
-        students = FileUpload.objects.all().order_by('user__fullname')
-   
-    context = {
-        'projects': projects,
-        'students': students,
-        'query':query,
-        'total_projects': total_projects,
-        'total_students': total_students,
-        'pending_reviews': pending_reviews,
-        'submission_rate': round(submission_rate,1), 
-    }
-
-
-    return render(request, 'adminPortal/admin.html', context)
+    # Your dashboard logic here
+    return render(request, 'adminPortal/admin.html')
 
 
 def adminLogoutView(request):
@@ -163,24 +105,3 @@ def adminLogoutView(request):
     messages.success(request, "You have been logged out successfully.")
     return redirect('admin_login')
 
-@login_required(login_url='admin_login')
-def delete_project(request, pk):
-    project = get_object_or_404(FileUpload, id=pk)
-    project.delete()
-    return redirect('admin_dashboard')
-
-
-@login_required(login_url='admin-login')
-def grade_project(request, pk):
-    project = get_object_or_404(FileUpload, id = pk)
-
-    if request.method == 'POST':
-        grade = request.POST['grade']
-        feedback = request.POST['feedback']
-        project.grade = grade
-        project.feedback = feedback
-        project.save()
-        messages.success(request, f"Grade '{grade}' assigned to {project.project_title}")
-        return redirect('admin_dashboard')
-    
-    return render(request, 'adminPortal/grade_project.html', {'project': project})

@@ -4,598 +4,220 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Student Project Portal — Upload</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#f8fafc;
+      --bg:#f7f9fc;
       --card:#ffffff;
-      --accent:#6366f1;
-      --accent-hover:#4f46e5;
-      --accent-light:#eef2ff;
-      --secondary:#10b981;
-      --danger:#ef4444;
-      --text:#1e293b;
-      --muted:#64748b;
-      --border:#e2e8f0;
-      --shadow-sm:0 4px 12px rgba(0,0,0,0.06);
-      --shadow:0 10px 30px rgba(0,0,0,0.08);
-      --shadow-lg:0 20px 50px rgba(99,102,241,0.15);
-      --radius:20px;
-      --radius-sm:16px;
+      --accent:#7c5cff;
+      --accent-2:#6bd4c1;
+      --muted:#7b8aa5;
       font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial;
     }
-
-    *, *::before, *::after {box-sizing:border-box;margin:0;padding:0}
-    html,body{height:100%;overflow-x:hidden}
+    *{box-sizing:border-box}
     body{
-      background:linear-gradient(135deg, #eef2ff 0%, #e0e7ff 50%, #dbeafe 100%);
-      color:var(--text);
+      margin:0;
+      background:linear-gradient(180deg,var(--bg),#eef4ff 60%);
       display:flex;
       flex-direction:column;
       align-items:center;
+      color:#21303a;
       min-height:100vh;
-      position:relative;
     }
 
-    /* ==== Animated Background Orbs ==== */
-    .bg-orb{
-      position:absolute;
-      border-radius:50%;
-      filter:blur(90px);
-      opacity:0.4;
-      animation:float 10s infinite ease-in-out;
-      z-index:-1;
-    }
-    .orb-1{
-      width:600px;height:600px;
-      background:radial-gradient(circle, #818cf8, transparent);
-      top:-200px;left:-200px;
-      animation-delay:0s;
-    }
-    .orb-2{
-      width:500px;height:500px;
-      background:radial-gradient(circle, #6ee7b7, transparent);
-      bottom:-180px;right:-180px;
-      animation-delay:5s;
-    }
-    @keyframes float {
-      0%,100%{transform:translate(0,0) rotate(0deg);}
-      50%{transform:translate(40px,-40px) rotate(6deg);}
-    }
-
-    /* ==== Animations ==== */
-    @keyframes fadeIn {
-      from {opacity:0;transform:translateY(15px);}
-      to {opacity:1;transform:translateY(0);}
-    }
-    @keyframes slideInLeft {
-      from {opacity:0;transform:translateX(-30px);}
-      to {opacity:1;transform:translateX(0);}
-    }
-    @keyframes slideInRight {
-      from {opacity:0;transform:translateX(30px);}
-      to {opacity:1;transform:translateX(0);}
-    }
-    @keyframes pulse {
-      0%,100%{transform:scale(1);}
-      50%{transform:scale(1.06);}
-    }
-    @keyframes floatUp {
-      0%,100%{transform:translateY(0);}
-      50%{transform:translateY(-8px);}
-    }
-    @keyframes shimmer {
-      0% {background-position:-200% center;}
-      100% {background-position:200% center;}
-    }
-    @keyframes ripple {
-      to {transform:scale(1.5);opacity:0;}
-    }
-
-    .animate-fade {animation:fadeIn 0.7s ease-out forwards;}
-    .animate-slide-left {animation:slideInLeft 0.6s ease-out forwards;}
-    .animate-slide-right {animation:slideInRight 0.6s ease-out forwards;}
-    .animate-pulse {animation:pulse 2s infinite ease-in-out;}
-    .animate-float {animation:floatUp 3.5s infinite ease-in-out;}
-    .shimmer {
-      background:linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
-      background-size:200% 100%;
-      animation:shimmer 1.6s infinite;
-    }
-
-    /* ==== Navigation ==== */
+    /* Navigation */
     nav{
       width:100%;
-      background:linear-gradient(135deg, rgba(99,102,241,0.12), rgba(16,185,129,0.08));
-      backdrop-filter:blur(14px);
-      border-bottom:1px solid rgba(255,255,255,0.3);
+      background:linear-gradient(90deg,rgba(124,92,255,0.08),rgba(107,212,193,0.08));
+      backdrop-filter:blur(10px);
       display:flex;
-      flex-wrap:wrap;
       justify-content:space-between;
       align-items:center;
-      padding:18px 32px;
-      box-shadow:var(--shadow);
+      padding:18px 40px;
+      box-shadow:0 6px 20px rgba(19,33,68,0.05);
       position:sticky;
       top:0;
-      z-index:1000;
-      gap:16px;
+      z-index:10;
     }
     .logo{
       font-weight:700;
-      font-size:22px;
+      font-size:18px;
       color:var(--accent);
-      display:flex;
-      align-items:center;
-      gap:12px;
-      transition:transform .3s ease;
+      display:flex;align-items:center;gap:10px;
     }
-    .logo:hover {animation:animate-pulse 1.8s infinite;}
     nav ul{
-      display:flex;
-      flex-wrap:wrap;
-      gap:24px;
-      list-style:none;
+      display:flex;gap:24px;list-style:none;margin:0;padding:0;
       align-items:center;
     }
     nav ul li a{
-      color:var(--text);
-      text-decoration:none;
-      font-weight:600;
-      font-size:15px;
-      padding:8px 0;
-      position:relative;
-      transition:all .3s ease;
-    }
-    nav ul li a::after{
-      content:'';
-      position:absolute;
-      bottom:0;
-      left:50%;
-      width:0;
-      height:2.5px;
-      background:linear-gradient(90deg, var(--accent), var(--secondary));
-      border-radius:2px;
-      transition:width .35s ease, left .35s ease;
-      transform:translateX(-50%);
+      color:#21303a;text-decoration:none;font-weight:500;
+      transition:color .2s ease;
     }
     nav ul li a:hover{color:var(--accent);}
-    nav ul li a:hover::after{width:100%;}
     .user-display{
-      background:linear-gradient(135deg, var(--secondary), #34d399);
-      color:#fff;
-      padding:8px 16px;
+      background:linear-gradient(90deg,var(--accent-2),#a6f0de);
+      padding:8px 14px;
       border-radius:999px;
+      color:#054;
       font-weight:600;
       font-size:14px;
-      box-shadow:0 6px 16px rgba(16,185,129,0.25);
-      animation:animate-float 3s infinite ease-in-out;
-      border:1px solid rgba(255,255,255,0.3);
     }
 
-    /* ==== Layout ==== */
+    /* Layout */
     .container{
       width:100%;
-      max-width:960px;
+      max-width:900px;
       margin:40px auto;
-      padding:0 24px;
-      display:flex;
-      flex-direction:column;
-      gap:32px;
+      padding:0 20px;
     }
 
-    /* ==== Card Base ==== */
     .card{
       background:var(--card);
-      border-radius:var(--radius);
+      border-radius:18px;
       padding:36px;
-      box-shadow:var(--shadow);
-      border:1px solid rgba(255,255,255,0.4);
-      backdrop-filter:blur(12px);
-      opacity:0;
-      transform:translateY(30px);
-      animation:fadeIn 0.8s ease-out forwards;
-      transition:all .35s ease;
-      position:relative;
-      overflow:hidden;
+      box-shadow:0 10px 35px rgba(19,33,68,0.08);
+      margin-bottom:30px;
     }
-    .card::before{
-      content:'';
-      position:absolute;
-      top:0;left:0;
-      width:100%;height:5px;
-      background:linear-gradient(90deg, var(--accent), var(--secondary));
-      transform:scaleX(0);
-      transform-origin:left;
-      transition:transform .5s ease;
-    }
-    .card:hover{
-      transform:translateY(-6px);
-      box-shadow:var(--shadow-lg);
-    }
-    .card:hover::before{transform:scaleX(1);}
 
     .card h2{
-      font-size:24px;
+      margin-top:0;
+      font-size:22px;
       font-weight:700;
-      margin-bottom:24px;
-      color:var(--text);
-      position:relative;
-      display:flex;
-      align-items:center;
-      gap:12px;
-    }
-    .card h2::after{
-      content:'';
-      flex:1;
-      height:3px;
-      background:linear-gradient(90deg, var(--accent), transparent);
-      border-radius:2px;
+      color:#222;
     }
 
-    /* ==== Form ==== */
     form{
       display:flex;
       flex-direction:column;
-      gap:20px;
+      gap:14px;
+      margin-top:18px;
     }
-    .field{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      position:relative;
-      opacity:0;
-      animation:fadeIn 0.7s ease-out forwards;
-      animation-delay:calc(0.12s * var(--i, 0));
-    }
-    label{
-      font-size:14px;
-      color:var(--muted);
-      font-weight:600;
-      padding-left:4px;
-      transition:color .25s;
-    }
-    input[type="text"],
-    textarea,
-    input[type="file"]{
+
+    .field{display:flex;flex-direction:column;gap:6px;}
+    label{font-size:13px;color:var(--muted);}
+
+    input[type="text"], textarea, input[type="file"]{
       width:100%;
-      padding:15px 18px;
-      border:1.5px solid var(--border);
-      border-radius:var(--radius-sm);
+      padding:12px 14px;
+      border-radius:10px;
+      border:1px solid #e6edf6;
       font-size:15px;
-      background:#fff;
       outline:none;
-      transition:all .3s ease;
-      box-shadow:var(--shadow-sm);
-    }
-    input[type="file"]{
-      padding:12px 16px;
-      cursor:pointer;
-    }
-    input:focus, textarea:focus{
-      border-color:var(--accent);
-      box-shadow:0 0 0 4px rgba(99,102,241,0.15), var(--shadow-sm);
-      transform:scale(1.005);
-    }
-    textarea{
-      resize:vertical;
-      min-height:110px;
-      font-family:inherit;
+      background:linear-gradient(180deg,#fff,#fbfdff);
+      transition:box-shadow .15s,border-color .15s;
     }
 
-    /* ==== Button ==== */
+    textarea{resize:none;min-height:90px;}
+
+    input:focus, textarea:focus{
+      box-shadow:0 6px 20px rgba(124,92,255,0.12);
+      border-color:rgba(124,92,255,0.28);
+    }
+
     .btn{
-      align-self:flex-start;
-      padding:14px 28px;
+      padding:12px 16px;
+      border-radius:12px;
       border:none;
-      border-radius:var(--radius-sm);
       cursor:pointer;
       font-weight:600;
-      font-size:15px;
+      background:linear-gradient(90deg,var(--accent),#5b3bff);
       color:#fff;
-      background:linear-gradient(135deg, var(--accent), var(--accent-hover));
-      box-shadow:0 6px 18px rgba(99,102,241,0.25);
-      transition:all .3s ease;
-      position:relative;
-      overflow:hidden;
-      display:flex;
-      align-items:center;
-      gap:10px;
+      box-shadow:0 8px 18px rgba(92,60,255,0.16);
+      transition:transform .2s ease;
     }
-    .btn::before{
-      content:'';
-      position:absolute;
-      top:0; left:-100%;
-      width:100%; height:100%;
-      background:linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      transition:left .6s;
-    }
-    .btn:hover{
-      transform:translateY(-3px);
-      box-shadow:0 12px 28px rgba(99,102,241,0.3);
-    }
-    .btn:hover::before{left:100%;}
-    .btn:active{transform:scale(0.98);}
+    .btn:hover{transform:scale(1.03);}
 
-    /* ==== Messages ==== */
-    .messages{
-      margin-top:16px;
-      text-align:center;
-      font-size:14px;
-      color:#dc2626;
-      animation:fadeIn 0.5s ease-out;
-    }
-
-    /* ==== File List ==== */
+    /* File list */
     .file-list{
       display:flex;
       flex-direction:column;
-      gap:20px;
-      margin-top:8px;
+      gap:12px;
+      margin-top:20px;
     }
+
     .file-item{
-      background:linear-gradient(135deg, #ffffff, #f8faff);
-      border:1.5px solid var(--border);
-      border-radius:var(--radius-sm);
-      padding:18px 20px;
+      background:linear-gradient(180deg,#fff,#fafcff);
+      border:1px solid #e6edf6;
+      border-radius:12px;
+      padding:14px 16px;
       display:flex;
-      flex-wrap:wrap;
-      gap:16px;
       justify-content:space-between;
       align-items:center;
-      transition:all .35s ease;
-      opacity:0;
-      transform:translateX(-20px);
-      animation:slideInLeft 0.6s ease-out forwards;
-      animation-delay:calc(0.1s * var(--i, 0));
-      position:relative;
-      overflow:hidden;
+      transition:box-shadow .2s ease;
     }
-    .file-item::before{
-      content:'';
-      position:absolute;
-      top:0;left:0;
-      width:100%;height:4px;
-      background:linear-gradient(90deg, var(--accent), var(--secondary));
-      transform:scaleX(0);
-      transform-origin:left;
-      transition:transform .4s ease;
-    }
-    .file-item:hover{
-      transform:translateY(-4px);
-      box-shadow:0 10px 24px rgba(99,102,241,0.15);
-      border-color:var(--accent);
-    }
-    .file-item:hover::before{transform:scaleX(1);}
 
-    .file-info{
-      flex:1;
-      min-width:200px;
-    }
-    .file-name{
-      font-size:16px;
-      font-weight:600;
-      color:var(--text);
-      margin-bottom:6px;
-      word-break:break-word;
-    }
-    .file-meta{
-      font-size:13px;
-      color:var(--muted);
-    }
-    .file-actions{
-      display:flex;
-      gap:10px;
-    }
-    .view-btn{
-      background:var(--secondary);
+    .file-item:hover{box-shadow:0 4px 14px rgba(124,92,255,0.08);}
+    .file-name{font-size:15px;color:#223;}
+    .delete-btn{
+      background:#ff4d6d;
       color:#fff;
-      padding:8px 16px;
-      border-radius:12px;
+      border:none;
+      border-radius:8px;
+      padding:6px 12px;
       font-size:13px;
-      font-weight:600;
-      text-decoration:none;
-      transition:all .25s ease;
-      box-shadow:0 4px 12px rgba(16,185,129,0.2);
+      cursor:pointer;
+      transition:background .2s ease;
     }
-    .view-btn:hover{
-      transform:scale(1.05);
-      box-shadow:0 6px 16px rgba(16,185,129,0.3);
-    }
+    .delete-btn:hover{background:#e03e5b;}
 
-    /* ==== Grade Box ==== */
-    .grade-box{
-      margin:16px 0 0;
-      background:linear-gradient(135deg, rgba(99,102,241,0.08), rgba(16,185,129,0.05));
-      border-left:5px solid var(--accent);
-      padding:16px 18px;
-      border-radius:12px;
-      font-size:14.5px;
-      opacity:0;
-      animation:fadeIn 0.7s ease-out forwards;
-      transition:background .3s;
-      border:1px solid rgba(99,102,241,0.15);
-    }
-    .grade-box:hover{background:rgba(99,102,241,0.12);}
-    .grade-box p{margin:6px 0;}
-    .grade-box strong{color:var(--accent);}
-
-    .not-graded{
-      margin:12px 0 0;
-      font-size:14.5px;
-      color:var(--muted);
-      font-style:italic;
-      opacity:0;
-      animation:fadeIn 0.6s ease-out forwards;
-    }
-
-    /* ==== Footer ==== */
     footer{
       text-align:center;
       color:var(--muted);
-      font-size:13.5px;
-      padding:32px 24px 48px;
-      width:100%;
-      opacity:0;
-      animation:fadeIn 0.8s ease-out 0.6s forwards;
+      font-size:13px;
+      padding:20px 0 40px;
     }
 
-    /* ==== Responsive ==== */
-    @media (max-width: 1024px){
-      .container{max-width:800px;padding:0 20px;}
-      nav{padding:16px 28px;}
-      nav ul{gap:20px;}
-    }
-    @media (max-width: 768px){
-      nav{flex-direction:column;gap:14px;padding:14px 20px;}
-      .logo{font-size:20px;}
-      nav ul{gap:16px;justify-content:center;flex-wrap:wrap;}
-      .container{gap:28px;margin:32px auto;}
-      .card{padding:28px;border-radius:18px;}
-      .card h2{font-size:22px;}
-      .btn{width:100%;justify-content:center;}
-      .file-item{flex-direction:column;align-items:stretch;}
-      .file-info{min-width:auto;}
-      .file-actions{justify-content:center;}
-    }
-    @media (max-width: 480px){
-      nav{padding:12px 16px;}
-      .logo{font-size:18px;gap:8px;}
-      nav ul{gap:12px;}
-      .user-display{font-size:13px;padding:7px 14px;}
-      .container{padding:0 16px;margin:24px auto;}
+    @media(max-width:768px){
+      nav{flex-direction:column;gap:10px;padding:14px 20px;}
+      .container{margin-top:20px;}
       .card{padding:24px;}
-      .card h2{font-size:20px;}
-      .field{gap:8px;}
-      input, textarea, input[type="file"]{font-size:14px;padding:13px 16px;}
-      .btn{font-size:14px;padding:13px 24px;}
-      .file-name{font-size:15px;}
-      .grade-box, .not-graded{font-size:13.5px;padding:14px 16px;}
-      footer{font-size:12.5px;padding:28px 16px 40px;}
     }
   </style>
 </head>
 <body>
 
-  <!-- Animated Background Orbs -->
-  <div class="bg-orb orb-1"></div>
-  <div class="bg-orb orb-2"></div>
-
   <nav>
-    <div class="logo">ProjectHub Portal</div>
+    <div class="logo">🎓 ProjectHub Portal</div>
     <ul>
+      <li><a href="#">Home</a></li>
       <li><a href="#upload">Upload</a></li>
       <li><a href="#myfiles">My Files</a></li>
-      <li><span class="user-display">Welcome, {{ request.session.username }}</span></li>
-      <li><a href="{% url 'logout' %}">Logout</a></li>
+      <li><span class="user-display" id="userDisplay">Welcome, {{ request.session.username }}</span></li>
+      <li><a href="{% url 'login' %}">Logout</a></li>
     </ul>
   </nav>
 
   <div class="container">
-    <!-- Upload Section -->
-    <div class="card" id="upload" style="animation-delay:0.2s;">
+    <div class="card" id="upload">
       <h2>Upload Your Project</h2>
-      <form method="post" enctype="multipart/form-data">
+      <form method="post">
         {% csrf_token %}
-        <div class="field" style="--i:1;">
+        <div class="field">
           <label for="title">Project Title</label>
-          <input type="text" id="title" name="title" placeholder="e.g. AMS chatbot" required>
+          <input type="text" id="title" name="title" placeholder="Enter project title" required>
         </div>
 
-        <div class="field" style="--i:2;">
+        <div class="field">
           <label for="description">Description</label>
-          <textarea id="description" name="description" placeholder="Briefly describe your project..." required></textarea>
+          <textarea id="description" name="description" placeholder="Write a short description..." required></textarea>
         </div>
 
-        <div class="field" style="--i:3;">
+        <div class="field">
           <label for="file">Select Files</label>
           <input type="file" id="file" name="file" multiple accept=".zip,.pdf,.docx,.py,.cpp,.java,.js,.html,.css" required>
         </div>
 
-        <button type="submit" class="btn">Upload Project</button>
+        <button class="btn" type="submit">Upload Project</button>
       </form>
-
-      {% for uploadmsg in messages %}
-        <p class="messages">{{ uploadmsg }}</p>
-      {% endfor %}
     </div>
 
-    <!-- My Files Section -->
-    <div class="card" id="myfiles" style="animation-delay:0.4s;">
-      <h2>My Uploaded Projects</h2>
-      <div class="file-list">
-        {% for project in projects %}
-          <div class="file-item" style="--i:{{ forloop.counter }};">
-            <div class="file-info">
-              <div class="file-name">{{ project.project_title }}</div>
-              <div class="file-meta">{{ project.file.name|slice:"8:" }} • {{ project.date_added|date:"M d, Y" }}</div>
-            </div>
-            <div class="file-actions">
-              <a href="{{ project.file.url }}" class="view-btn" target="_blank">View</a>
-            </div>
-          </div>
-
-          {% if project.grade %}
-            <div class="grade-box">
-              <p><strong>Grade:</strong> {{ project.grade }}</p>
-              <p><strong>Feedback:</strong> {{ project.feedback|default:"No feedback provided" }}</p>
-            </div>
-          {% else %}
-            <p class="not-graded">Not yet graded</p>
-          {% endif %}
-
-        {% empty %}
-          <p style="text-align:center;color:var(--muted);margin-top:20px;animation:fadeIn 0.7s ease-out;">No projects uploaded yet. Start by uploading your first project!</p>
-        {% endfor %}
-      </div>
+    <div class="card" id="myfiles">
+      <h2>My Uploaded Files</h2>
+      <div class="file-list" id="fileList"></div>
     </div>
   </div>
 
-  <footer>© 2025 ProjectHub Student Portal — CodeWithSam</footer>
-
-  <!-- Enhanced Scroll Animations -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.1 });
-
-      // Cards
-      document.querySelectorAll('.card').forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
-        observer.observe(el);
-      });
-
-      // Form fields
-      document.querySelectorAll('.field').forEach((el, i) => {
-        el.style.opacity = '0';
-        el.style.transition = 'opacity 0.7s ease-out';
-        setTimeout(() => observer.observe(el), i * 120);
-      });
-
-      // File items
-      document.querySelectorAll('.file-item').forEach((el, i) => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateX(-20px)';
-        el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
-        setTimeout(() => observer.observe(el), 200 + i * 100);
-      });
-
-      // Grade boxes
-      document.querySelectorAll('.grade-box, .not-graded').forEach(el => {
-        el.style.opacity = '0';
-        el.style.transition = 'opacity 0.7s ease-out';
-        observer.observe(el);
-      });
-    });
-  </script>
+  <footer>© 2025 Student Project Portal. All rights reserved.</footer>
 
 </body>
 </html>
